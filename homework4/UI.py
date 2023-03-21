@@ -117,19 +117,18 @@ class MainWindow(QMainWindow):
             self.qimg = QImage(self.img.data, self.img_width, self.img_height, self.img_width, QImage.Format_Grayscale8)
             self.pixmap = QPixmap.fromImage(self.qimg)
             self.label_img.setPixmap(self.pixmap)
-            # 去除已有的标红的种子点
-            for child in self.children():
-                if isinstance(child, QLabel) and child.styleSheet() == 'background-color:red':
-                    child.deleteLater()
+
             # 获取鼠标点击的坐标
             pos = event.pos()
             x, y = pos.x(), pos.y()
             # 如果点击在图片内部
             if 0 <= x < self.img_width and 0 <= y < self.img_height:
+                # 去除已有的标红的种子点
+                for child in self.children():
+                    if isinstance(child, QLabel) and child.styleSheet() == 'background-color:red':
+                        child.deleteLater()
                 # 绘制种子点
                 label_seed = QLabel(self)
-                # 把已有的标红的种子点清除
-
                 label_seed.setGeometry(x - 3, y - 3, 6, 6)
                 label_seed.setStyleSheet('background-color:red')
                 label_seed.show()
