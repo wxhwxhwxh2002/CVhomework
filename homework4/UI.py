@@ -4,7 +4,7 @@
 @IDE     ：PyCharm 
 @Author  ：32005231文萧寒
 @Date    ：2023/3/21 16:40
- 
+ 简单的UI界面
 """
 import sys
 
