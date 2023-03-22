@@ -19,6 +19,7 @@ from matplotlib import pyplot as plt
 
 from regionGrowth import regionGrowth
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -63,7 +64,6 @@ class MainWindow(QMainWindow):
         self.label_seed.move(10, self.img_height + 50)
         self.label_seed.setFixedWidth(300)
 
-
     def selectImg(self):
         fname, _ = QFileDialog.getOpenFileName(self, '选择图片', '.', 'Image files (*.jpg *.png *.bmp)')
         if fname:
@@ -106,10 +106,6 @@ class MainWindow(QMainWindow):
         self.label_img.setPixmap(self.pixmap)
         progress_dialog.close()
 
-
-
-
-
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             # 显示原图
@@ -139,6 +135,18 @@ class MainWindow(QMainWindow):
                 # 显示当前选定种子点坐标
                 self.label_seed.setText(f'当前选定种子点坐标：({y}, {x})')  # 注意这里的坐标是反的
                 print(self.seeds)
+
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self,
+                                     '退出',
+                                     "是否要退出程序？",
+                                     QMessageBox.Yes | QMessageBox.No,
+                                     QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            self.close()
+            event.accept()
+        else:
+            event.ignore()
 
 
 if __name__ == '__main__':
